@@ -53,9 +53,15 @@ public class WrapperTests {
 
             Doc doc = new Wrapper(new Text(text), WrapperType.FG_COLOR_GREEN);
 
-            String result = renderer.render(doc);
+            renderer.setApplyColor(true);
+            String resultWithColor = renderer.render(doc);
 
-            Test.expect(result.equals(GREEN+text+RESET));
+            Test.expect(resultWithColor.equals(GREEN+text+RESET));
+
+            renderer.setApplyColor(false);
+            String resultWithoutColor = renderer.render(doc);
+
+            Test.expect(resultWithoutColor.equals(text));
         });
 
         Test.it("Renders yellow wrapper correctly", () -> {
@@ -63,9 +69,15 @@ public class WrapperTests {
 
             Doc doc = new Wrapper(new Text(text), WrapperType.FG_COLOR_YELLOW);
 
-            String result = renderer.render(doc);
+            renderer.setApplyColor(true);
+            String resultWithColor = renderer.render(doc);
 
-            Test.expect(result.equals(YELLOW+text+RESET));
+            Test.expect(resultWithColor.equals(YELLOW+text+RESET));
+
+            renderer.setApplyColor(false);
+            String resultWithoutColor = renderer.render(doc);
+
+            Test.expect(resultWithoutColor.equals(text));
         });
 
         Test.it("Renders cyan wrapper correctly", () -> {
@@ -73,9 +85,15 @@ public class WrapperTests {
 
             Doc doc = new Wrapper(new Text(text), WrapperType.FG_COLOR_CYAN);
 
-            String result = renderer.render(doc);
+            renderer.setApplyColor(true);
+            String resultWithColor = renderer.render(doc);
 
-            Test.expect(result.equals(CYAN+text+RESET));
+            Test.expect(resultWithColor.equals(CYAN+text+RESET));
+
+            renderer.setApplyColor(false);
+            String resultWithoutColor = renderer.render(doc);
+
+            Test.expect(resultWithoutColor.equals(text));
         });
     }
 }

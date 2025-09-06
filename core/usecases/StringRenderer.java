@@ -11,6 +11,14 @@ import core.entities.Doc.WrapperType;
 
 public class StringRenderer implements Renderer {
 
+    public StringRenderer setApplyColor(boolean bool) {
+        return this;
+    }
+
+    public StringRenderer setApplyFormat(boolean bool) {
+        return this;
+    }
+
     @Override
     public String render(Doc doc, int indentLevel) {
         return doc.render(this, indentLevel);

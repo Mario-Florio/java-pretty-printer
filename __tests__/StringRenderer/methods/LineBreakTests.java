@@ -15,9 +15,15 @@ public class LineBreakTests {
         Test.it("Renders line break correctly", () -> {
             Doc doc = new LineBreak();
 
-            String result = renderer.render(doc);
+            renderer.setApplyFormat(true);
+            String resultWithFormat = renderer.render(doc);
 
-            Test.expect(result.equals(LineBreak.value));
+            Test.expect(resultWithFormat.equals(LineBreak.value));
+
+            renderer.setApplyFormat(false);
+            String resultWithoutFormat = renderer.render(doc);
+
+            Test.expect(resultWithoutFormat.equals(""));
         });
     }
 }

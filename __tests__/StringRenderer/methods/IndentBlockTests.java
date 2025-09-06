@@ -24,9 +24,15 @@ public class IndentBlockTests {
                 new Text(entry)
             ));
 
-            String result = renderer.render(doc);
+            renderer.setApplyFormat(true);
+            String resultWithFormat = renderer.render(doc);
 
-            Test.expect(result.equals(INDENT+entry+INDENT+entry+INDENT+entry));
+            Test.expect(resultWithFormat.equals(INDENT+entry+INDENT+entry+INDENT+entry));
+
+            renderer.setApplyFormat(false);
+            String resultWithoutFormat = renderer.render(doc);
+
+            Test.expect(resultWithoutFormat.equals(entry+entry+entry));
         });
     }
 }
