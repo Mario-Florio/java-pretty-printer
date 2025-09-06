@@ -1,6 +1,7 @@
 package __tests__.Modeler;
 
 import __tests__.Modeler.methods.ClassTests;
+import __tests__.Modeler.methods.CustomObjectTests;
 import __tests__.Modeler.methods.FunctionTests;
 import __tests__.Modeler.methods.InvocableTests;
 import __tests__.Modeler.methods.MapTests;
@@ -17,6 +18,7 @@ public class ModelerTest {
         InvocableTests.run();
         FunctionTests.run();
         ClassTests.run();
+        CustomObjectTests.run();
         MapTests.run();
     }
 }
