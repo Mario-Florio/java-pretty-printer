@@ -51,7 +51,12 @@ public class StringRenderer implements Renderer {
 
     @Override
     public String renderConcat(Concat concat, int indentLevel) {
-        return "";
+        StringBuilder sb = new StringBuilder();
+
+        for (Doc child : concat.children())
+            sb.append(child.render(this, indentLevel));
+
+        return sb.toString();
     }
 
     @Override
