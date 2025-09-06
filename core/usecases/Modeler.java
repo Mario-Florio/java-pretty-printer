@@ -48,6 +48,7 @@ public class Modeler {
         if (isCustomClass(obj.getClass()))   return modelCustomObj(obj);
         if (obj instanceof Map map)          return modelMap(map);
         if (isArray(obj))                    return modelArr(obj);
+        if (obj instanceof List list)        return modelList(list);
                                              return new Text(obj.toString());
     }
     private static final Doc modelNull(Object obj) {
@@ -210,6 +211,9 @@ public class Modeler {
         }
 
         return new Wrapper(new Concat(children), WrapperType.SQUARE_BRACKETS);
+    }
+    private static final Doc modelList(List<?> list) {
+        return model(list.toArray());
     }
     // UTILS
     private static final Boolean isArray(Object obj) {
