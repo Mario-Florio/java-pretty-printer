@@ -44,6 +44,7 @@ public class Modeler {
         if (obj instanceof BiConsumer bc)    return modelBiConsumer(bc);
         if (obj instanceof Supplier s)       return modelSupplier(s);
         if (obj instanceof Class cls)        return modelClass(cls);
+        if (isCustomClass(obj.getClass()))   return modelCustomObj(obj);
         if (obj instanceof Map map)          return modelMap(map);
                                              return new Text(obj.toString());
     }
@@ -109,6 +110,28 @@ public class Modeler {
         }
 
         return new Concat(List.of(new Text(nameLabel+" "), model(entries)));
+    }
+    private static final Doc modelCustomObj(Object obj) {
+        Class<?> cls = obj.getClass();
+        String nameLabel = cls.getSimpleName()+" ";
+
+        Map<String, Object> entries = new LinkedHashMap<>();
+
+        try {
+            for (Field field : cls.getDeclaredFields()) {
+                if (java.lang.reflect.Modifier.isStatic(field.getModifiers())) continue;
+                field.setAccessible(true);
+                entries.put(field.getName(), field.get(obj));
+            }
+            for (Method method : cls.getDeclaredMethods()) {
+                if (java.lang.reflect.Modifier.isStatic(method.getModifiers())) continue;
+                entries.put(method.getName(), method);
+            }
+        } catch (Exception e) {
+            // Handle Exception
+        }
+
+        return new Concat(List.of(new Text(nameLabel), model(entries)));
     }
     private static final Doc modelMap(Map<?, ?> map) {
         List<Doc> children = new ArrayList<>();
