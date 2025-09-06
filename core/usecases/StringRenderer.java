@@ -96,6 +96,8 @@ public class StringRenderer implements Renderer {
 
         }
 
+        if (applyFormat == true) sb.append(IndentBlock.INDENT.repeat(indentLevel));
+
         return sb.toString();
     }
 
