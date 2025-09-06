@@ -1,5 +1,6 @@
 package __tests__.Modeler;
 
+import __tests__.Modeler.methods.ArrayTests;
 import __tests__.Modeler.methods.ClassTests;
 import __tests__.Modeler.methods.CustomObjectTests;
 import __tests__.Modeler.methods.FunctionTests;
@@ -20,5 +21,6 @@ public class ModelerTest {
         ClassTests.run();
         CustomObjectTests.run();
         MapTests.run();
+        ArrayTests.run();
     }
 }
