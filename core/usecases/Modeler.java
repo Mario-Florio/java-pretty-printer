@@ -2,6 +2,10 @@ package core.usecases;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
@@ -11,6 +15,9 @@ import java.util.function.Supplier;
 import java.util.regex.Pattern;
 
 import core.entities.Doc;
+import core.entities.Doc.Concat;
+import core.entities.Doc.IndentBlock;
+import core.entities.Doc.LineBreak;
 import core.entities.Doc.Text;
 import core.entities.Doc.Wrapper;
 import core.entities.Doc.WrapperType;
@@ -35,6 +42,7 @@ public class Modeler {
         if (obj instanceof BiConsumer bc)    return modelBiConsumer(bc);
         if (obj instanceof Supplier s)       return modelSupplier(s);
         if (obj instanceof Class cls)        return modelClass(cls);
+        if (obj instanceof Map map)          return modelMap(map);
                                              return new Text(obj.toString());
     }
     private static final Doc modelNull(Object obj) {
@@ -73,12 +81,55 @@ public class Modeler {
     private static final Doc modelSupplier(Supplier<?> s) {
         return new Wrapper(new Text("[Supplier]"), WrapperType.FG_COLOR_CYAN);
     }
-        private static final Doc modelClass(Class<?> cls) {
+    private static final Doc modelClass(Class<?> cls) {
         Pattern p = Pattern.compile("(?<=\\s)(?:.*\\.)");
         String fullName = cls.toString();
         String simpleName = p.matcher(fullName).replaceAll("");
         String nameLabel = "["+simpleName+"]";
 
         return new Text(nameLabel);
+    }
+    private static final Doc modelMap(Map<?, ?> map) {
+        List<Doc> children = new ArrayList<>();
+
+        if (!map.isEmpty()) {
+            // Lead with line break
+            children.add(new LineBreak());
+
+            List<Doc> entries = new ArrayList<>();
+            Iterator<? extends Map.Entry<?, ?>> it = map.entrySet().iterator();
+
+            while (it.hasNext()) {
+                Map.Entry<?, ?> e = it.next();
+                Object key = e.getKey();
+                Object val = e.getValue();
+                Doc k = null;
+                Doc v = null;
+
+                if (key instanceof String str && str.contains(" "))
+                    k = new Wrapper(new Wrapper(model(str), WrapperType.SINGLE_QUOTE), WrapperType.FG_COLOR_GREEN);
+                else k = model(key);
+
+                if (val instanceof String str)
+                    v = new Wrapper(new Wrapper(model(str), WrapperType.SINGLE_QUOTE), WrapperType.FG_COLOR_GREEN);
+                else v = model(val);
+
+                // entry
+                List<Doc> entry = new ArrayList<>();
+                entry.add(k);
+                entry.add(new Text(": "));
+                entry.add(v);
+
+                if (it.hasNext()) entry.add(new Text(", ")); // comma after all but last
+
+                entries.add(new Concat(entry));
+                entries.add(new LineBreak());
+            }
+
+            // Wrap all entries in one IndentBlock
+            children.add(new IndentBlock(entries));
+        }
+
+        return new Wrapper(new Concat(children), WrapperType.CURLY_BRACKETS);
     }
 }
