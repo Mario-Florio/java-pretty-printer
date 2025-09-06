@@ -1,3 +1,4 @@
+import __tests__.Engine.EngineTests;
 import __tests__.Modeler.ModelerTests;
 import __tests__.StringRenderer.StringRendererTests;
 
@@ -8,5 +9,6 @@ public class Main {
     private static void tests() {
         ModelerTests.run();
         StringRendererTests.run();
+        EngineTests.run();
     }
 }
