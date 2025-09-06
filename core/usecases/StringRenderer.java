@@ -61,7 +61,7 @@ public class StringRenderer implements Renderer {
 
     @Override
     public String renderLineBreak(LineBreak lb, int indentLevel) {
-        return "";
+        return LineBreak.value;
     }
 
     @Override
