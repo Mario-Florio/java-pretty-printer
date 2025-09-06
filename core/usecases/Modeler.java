@@ -8,6 +8,7 @@ import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.regex.Pattern;
 
 import core.entities.Doc;
 import core.entities.Doc.Text;
@@ -33,6 +34,7 @@ public class Modeler {
         if (obj instanceof BiFunction bf)    return modelBiFunc(bf);
         if (obj instanceof BiConsumer bc)    return modelBiConsumer(bc);
         if (obj instanceof Supplier s)       return modelSupplier(s);
+        if (obj instanceof Class cls)        return modelClass(cls);
                                              return new Text(obj.toString());
     }
     private static final Doc modelNull(Object obj) {
@@ -70,5 +72,13 @@ public class Modeler {
     }
     private static final Doc modelSupplier(Supplier<?> s) {
         return new Wrapper(new Text("[Supplier]"), WrapperType.FG_COLOR_CYAN);
+    }
+        private static final Doc modelClass(Class<?> cls) {
+        Pattern p = Pattern.compile("(?<=\\s)(?:.*\\.)");
+        String fullName = cls.toString();
+        String simpleName = p.matcher(fullName).replaceAll("");
+        String nameLabel = "["+simpleName+"]";
+
+        return new Text(nameLabel);
     }
 }
