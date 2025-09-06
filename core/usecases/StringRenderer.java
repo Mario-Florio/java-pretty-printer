@@ -66,7 +66,20 @@ public class StringRenderer implements Renderer {
 
     @Override
     public String renderIndentBlock(IndentBlock ib, int indentLevel) {
-        return "";
+
+        StringBuilder sb = new StringBuilder();
+        int newLevel = indentLevel+1;
+
+        for (Doc child : ib.children()) {
+
+            if (!(child instanceof LineBreak))
+                sb.append(IndentBlock.INDENT.repeat(newLevel));
+
+            sb.append(child.render(this, newLevel));
+
+        }
+
+        return sb.toString();
     }
 
     // UTILS
