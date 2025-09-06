@@ -11,7 +11,7 @@ import __tests__.Modeler.methods.MapTests;
 import __tests__.Modeler.methods.PrimitiveTests;
 import __tests__.Modeler.methods.StringTests;
 
-public class ModelerTest {
+public class ModelerTests {
 
     public static void run() {
         System.out.println("MODELER");
