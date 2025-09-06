@@ -5,6 +5,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -49,6 +50,7 @@ public class Modeler {
         if (obj instanceof Map map)          return modelMap(map);
         if (isArray(obj))                    return modelArr(obj);
         if (obj instanceof List list)        return modelList(list);
+        if (obj instanceof Collection c)     return modelCollection(c);
                                              return new Text(obj.toString());
     }
     private static final Doc modelNull(Object obj) {
@@ -214,6 +216,9 @@ public class Modeler {
     }
     private static final Doc modelList(List<?> list) {
         return model(list.toArray());
+    }
+    private static final Doc modelCollection(Collection<?> collection) {
+        return model(List.copyOf(collection));
     }
     // UTILS
     private static final Boolean isArray(Object obj) {
