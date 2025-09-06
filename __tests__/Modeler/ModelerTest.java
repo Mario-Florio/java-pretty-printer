@@ -2,6 +2,7 @@ package __tests__.Modeler;
 
 import __tests__.Modeler.methods.ArrayTests;
 import __tests__.Modeler.methods.ClassTests;
+import __tests__.Modeler.methods.CollectionTests;
 import __tests__.Modeler.methods.CustomObjectTests;
 import __tests__.Modeler.methods.FunctionTests;
 import __tests__.Modeler.methods.InvocableTests;
@@ -24,5 +25,6 @@ public class ModelerTest {
         MapTests.run();
         ArrayTests.run();
         ListTests.run();
+        CollectionTests.run();
     }
 }
