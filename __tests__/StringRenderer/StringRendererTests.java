@@ -1,6 +1,7 @@
 package __tests__.StringRenderer;
 
 import __tests__.StringRenderer.methods.TextTests;
+import __tests__.StringRenderer.methods.WrapperTests;
 
 public class StringRendererTests {
 
@@ -8,5 +9,6 @@ public class StringRendererTests {
         System.out.println("STRING RENDERER");
 
         TextTests.run();
+        WrapperTests.run();
     }
 }
