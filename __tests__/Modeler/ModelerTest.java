@@ -1,5 +1,6 @@
 package __tests__.Modeler;
 
+import __tests__.Modeler.methods.ClassTests;
 import __tests__.Modeler.methods.FunctionTests;
 import __tests__.Modeler.methods.InvocableTests;
 import __tests__.Modeler.methods.PrimitiveTests;
@@ -14,5 +15,6 @@ public class ModelerTest {
         StringTests.run();
         InvocableTests.run();
         FunctionTests.run();
+        ClassTests.run();
     }
 }
