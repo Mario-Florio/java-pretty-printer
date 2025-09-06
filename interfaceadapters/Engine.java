@@ -13,4 +13,12 @@ public class Engine {
 
         return renderer.render(docTree);
     }
+    public Engine configure(boolean applyFormat, boolean applyColor) {
+        StringRenderer stringRenderer = (StringRenderer) renderer;
+        stringRenderer
+            .setApplyFormat(applyFormat)
+            .setApplyColor(applyColor);
+        
+        return this;
+    }
 }
