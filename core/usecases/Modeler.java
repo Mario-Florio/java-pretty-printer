@@ -1,5 +1,6 @@
 package core.usecases;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -46,6 +47,7 @@ public class Modeler {
         if (obj instanceof Class cls)        return modelClass(cls);
         if (isCustomClass(obj.getClass()))   return modelCustomObj(obj);
         if (obj instanceof Map map)          return modelMap(map);
+        if (isArray(obj))                    return modelArr(obj);
                                              return new Text(obj.toString());
     }
     private static final Doc modelNull(Object obj) {
@@ -176,7 +178,43 @@ public class Modeler {
 
         return new Wrapper(new Concat(children), WrapperType.CURLY_BRACKETS);
     }
+    private static final Doc modelArr(Object arr) {
+        int len = Array.getLength(arr);
+        List<Doc> children = new ArrayList<>();
+
+        if (len > 0) {
+
+            List<Doc> elems = new ArrayList<>();
+
+            children.add(new LineBreak());
+            for (int i = 0; i < len; i++) {
+
+                List<Doc> elem = new ArrayList<>();
+
+                Object obj = Array.get(arr, i);
+                Doc item = null;
+
+                if (obj instanceof String str)
+                    item = new Wrapper(new Wrapper(model(str), WrapperType.SINGLE_QUOTE), WrapperType.FG_COLOR_GREEN); 
+                else item = model(obj);
+
+                elem.add(item);
+
+                if (i < len - 1) elem.add(new Text(", "));
+
+                elems.add(new Concat(elem));
+                elems.add(new LineBreak());
+            }
+
+            children.add(new IndentBlock(elems));
+        }
+
+        return new Wrapper(new Concat(children), WrapperType.SQUARE_BRACKETS);
+    }
     // UTILS
+    private static final Boolean isArray(Object obj) {
+        return obj.getClass().isArray();
+    }
     private static final Boolean isCustomClass(Class<?> c) {
         return !c.getPackageName().startsWith("java.");
     }
