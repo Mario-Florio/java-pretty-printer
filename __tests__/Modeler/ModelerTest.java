@@ -1,6 +1,7 @@
 package __tests__.Modeler;
 
 import __tests__.Modeler.methods.PrimitiveTests;
+import __tests__.Modeler.methods.StringTests;
 
 public class ModelerTest {
 
@@ -8,5 +9,6 @@ public class ModelerTest {
         System.out.println("MODELER");
 
         PrimitiveTests.run();
+        StringTests.run();
     }
 }
