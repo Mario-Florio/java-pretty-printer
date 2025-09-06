@@ -11,11 +11,16 @@ import core.entities.Doc.WrapperType;
 
 public class StringRenderer implements Renderer {
 
+    private boolean applyFormat = false;
+    private boolean applyColor = false;
+
     public StringRenderer setApplyColor(boolean bool) {
+        applyColor = bool;
         return this;
     }
 
     public StringRenderer setApplyFormat(boolean bool) {
+        applyFormat = bool;
         return this;
     }
 
@@ -43,13 +48,16 @@ public class StringRenderer implements Renderer {
                 return curlyBracketWrapper(wrapper.doc().render(this, indentLevel));
 
             case WrapperType.FG_COLOR_GREEN:
-                return fgGreenWrapper(wrapper.doc().render(this, indentLevel));
+                if (applyColor == true)
+                    return fgGreenWrapper(wrapper.doc().render(this, indentLevel));
 
             case WrapperType.FG_COLOR_YELLOW:
-                return fgYellowWrapper(wrapper.doc().render(this, indentLevel));
+                if (applyColor == true)
+                    return fgYellowWrapper(wrapper.doc().render(this, indentLevel));
 
             case WrapperType.FG_COLOR_CYAN:
-                return fgCyanWrapper(wrapper.doc().render(this, indentLevel));
+                if (applyColor == true)
+                    return fgCyanWrapper(wrapper.doc().render(this, indentLevel));
 
             default:
                 return wrapper.doc().render(this, indentLevel);
