@@ -1,9 +1,11 @@
 package core.usecases;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Callable;
@@ -87,7 +89,26 @@ public class Modeler {
         String simpleName = p.matcher(fullName).replaceAll("");
         String nameLabel = "["+simpleName+"]";
 
-        return new Text(nameLabel);
+        if (!isCustomClass(cls)) return new Text(nameLabel);
+
+        Map<String, Object> entries = new LinkedHashMap<>();
+
+        try {
+            for (Field field : cls.getDeclaredFields()) {
+                if (java.lang.reflect.Modifier.isStatic(field.getModifiers())) {
+                    field.setAccessible(true);
+                    entries.put(field.getName(), field.get(cls));
+                }
+            }
+            for (Method method : cls.getDeclaredMethods()) {
+                if (java.lang.reflect.Modifier.isStatic(method.getModifiers())) 
+                    entries.put(method.getName(), method);
+            }
+        } catch (Exception e) {
+            // Handle Exception
+        }
+
+        return new Concat(List.of(new Text(nameLabel+" "), model(entries)));
     }
     private static final Doc modelMap(Map<?, ?> map) {
         List<Doc> children = new ArrayList<>();
@@ -131,5 +152,9 @@ public class Modeler {
         }
 
         return new Wrapper(new Concat(children), WrapperType.CURLY_BRACKETS);
+    }
+    // UTILS
+    private static final Boolean isCustomClass(Class<?> c) {
+        return !c.getPackageName().startsWith("java.");
     }
 }
