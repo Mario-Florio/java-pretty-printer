@@ -5,6 +5,7 @@ import __tests__.Modeler.methods.ClassTests;
 import __tests__.Modeler.methods.CustomObjectTests;
 import __tests__.Modeler.methods.FunctionTests;
 import __tests__.Modeler.methods.InvocableTests;
+import __tests__.Modeler.methods.ListTests;
 import __tests__.Modeler.methods.MapTests;
 import __tests__.Modeler.methods.PrimitiveTests;
 import __tests__.Modeler.methods.StringTests;
@@ -22,5 +23,6 @@ public class ModelerTest {
         CustomObjectTests.run();
         MapTests.run();
         ArrayTests.run();
+        ListTests.run();
     }
 }
