@@ -77,6 +77,7 @@ public class StringRenderer implements Renderer {
 
     @Override
     public String renderLineBreak(LineBreak lb, int indentLevel) {
+        if (!applyFormat) return "";
         return LineBreak.value;
     }
 
@@ -88,7 +89,7 @@ public class StringRenderer implements Renderer {
 
         for (Doc child : ib.children()) {
 
-            if (!(child instanceof LineBreak))
+            if (!(child instanceof LineBreak) && applyFormat == true)
                 sb.append(IndentBlock.INDENT.repeat(newLevel));
 
             sb.append(child.render(this, newLevel));
