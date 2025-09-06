@@ -1,5 +1,6 @@
 package __tests__.StringRenderer;
 
+import __tests__.StringRenderer.methods.ConcatTests;
 import __tests__.StringRenderer.methods.TextTests;
 import __tests__.StringRenderer.methods.WrapperTests;
 
@@ -10,5 +11,6 @@ public class StringRendererTests {
 
         TextTests.run();
         WrapperTests.run();
+        ConcatTests.run();
     }
 }
