@@ -1,30 +1,30 @@
 package com.marioflorio.prettyprinter.StringRenderer;
 
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.marioflorio.prettyprinter.core.entities.Doc;
 import com.marioflorio.prettyprinter.core.entities.Doc.LineBreak;
 import com.marioflorio.prettyprinter.core.usecases.StringRenderer;
+import org.junit.jupiter.api.Test;
 
 public class LineBreakTests {
 
-    private static StringRenderer renderer = new StringRenderer();
+  private static StringRenderer renderer = new StringRenderer();
 
-    @Test
-    void rendersLineBreakCorrectly() {
-        Doc doc = new LineBreak();
+  @Test
+  void rendersLineBreakCorrectly() {
+    Doc doc = new LineBreak();
 
-        renderer.setApplyFormat(true);
-        String resultWithFormat = renderer.render(doc);
-        String expectedWithFormat = LineBreak.value;
+    renderer.setApplyFormat(true);
+    String resultWithFormat = renderer.render(doc);
+    String expectedWithFormat = LineBreak.value;
 
-        assertEquals(expectedWithFormat, resultWithFormat);
+    assertEquals(expectedWithFormat, resultWithFormat);
 
-        renderer.setApplyFormat(false);
-        String resultWithoutFormat = renderer.render(doc);
-        String expectedWithoutFormat = "";
+    renderer.setApplyFormat(false);
+    String resultWithoutFormat = renderer.render(doc);
+    String expectedWithoutFormat = "";
 
-        assertEquals(expectedWithoutFormat, resultWithoutFormat);
-    }
+    assertEquals(expectedWithoutFormat, resultWithoutFormat);
+  }
 }

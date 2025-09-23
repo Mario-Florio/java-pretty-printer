@@ -6,19 +6,18 @@ import com.marioflorio.prettyprinter.core.usecases.Modeler;
 import com.marioflorio.prettyprinter.core.usecases.StringRenderer;
 
 public class Engine {
-    private Renderer renderer = new StringRenderer();
+  private Renderer renderer = new StringRenderer();
 
-    public String run(Object obj) {
-        Doc docTree = Modeler.model(obj);
+  public String run(Object obj) {
+    Doc docTree = Modeler.model(obj);
 
-        return renderer.render(docTree);
-    }
-    public Engine configure(boolean applyFormat, boolean applyColor) {
-        StringRenderer stringRenderer = (StringRenderer) renderer;
-        stringRenderer
-            .setApplyFormat(applyFormat)
-            .setApplyColor(applyColor);
-        
-        return this;
-    }
+    return renderer.render(docTree);
+  }
+
+  public Engine configure(boolean applyFormat, boolean applyColor) {
+    StringRenderer stringRenderer = (StringRenderer) renderer;
+    stringRenderer.setApplyFormat(applyFormat).setApplyColor(applyColor);
+
+    return this;
+  }
 }

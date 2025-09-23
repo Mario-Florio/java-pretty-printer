@@ -6,23 +6,24 @@ import java.util.List;
 import java.util.Map;
 
 public class Main {
-    private static PrettyPrinter console = new PrettyPrinter(System.out);
-    public static void main(String[] args) {
-        // Demo
-        Map<Object, Object> map = new HashMap<>();
-        Map<Object, Object> innerMap = new HashMap<>();
-        List<Object> list = new ArrayList<>();
+  private static PrettyPrinter console = new PrettyPrinter(System.out);
 
-        map.put("prop", 1);
-        map.put("innerMap", innerMap);
+  public static void main(String[] args) {
+    // Demo
+    Map<Object, Object> map = new HashMap<>();
+    Map<Object, Object> innerMap = new HashMap<>();
+    List<Object> list = new ArrayList<>();
 
-        innerMap.put("prop", 1);
-        innerMap.put("prop2", "String");
-        innerMap.put("list", list);
+    map.put("prop", 1);
+    map.put("innerMap", innerMap);
 
-        list.add(1);
-        list.add((double) 2.0);
+    innerMap.put("prop", 1);
+    innerMap.put("prop2", "String");
+    innerMap.put("list", list);
 
-        console.log(console);
-    }
+    list.add(1);
+    list.add((double) 2.0);
+
+    console.log(console);
+  }
 }
