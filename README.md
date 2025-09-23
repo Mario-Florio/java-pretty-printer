@@ -2,15 +2,39 @@
 A `console.log` clone for Java.
 
 ## Setup
-1. Clone/copy repo into project
-2. Import project into project via `infrastructure.prettyprinter`
-3. Create `PrettyPrinter` instance (with passed reference to `out` print stream)
-4. Execute with `instance.log(obj)`
+
+**Prerequisites:**
+- Java 17 or higher
+- Maven 3.8+ installed
+
+**1. Clone/copy repo into project:**
+```bash
+git clone https://github.com/mario-florio/java-pretty-printer.git
+cd java-pretty-printer
+```
+
+**2. Install to local library with Maven:**
+```bash
+mvn clean install
+```
+
+**3. Add as dependency in Maven project:**
+```xml
+<dependency>
+  <groupId>com.marioflorio</groupId>
+  <artifactId>prettyprinter</artifactId>
+  <version>0.1.0</version>
+</dependency>
+```
+
+**4. Import in project:**
+```java
+import com.marioflorio.prettyprinter.PrettyPrinter;
+```
 
 ## Usage
 ```java
-// Import with appropriate path
-import pathto.prettyprinter;
+import com.marioflorio.prettyprinter.PrettyPrinter;
 
 public class Main {
     // Declare instance with standard output stream
@@ -56,8 +80,31 @@ public class Main {
                * }
                */
 
-               // See /docs/design-doc.md#general-behavior for all supported types
+            // See /docs/design-doc.md#general-behavior for all supported types
 
     }
 }
+```
+
+## Tests
+Unit and Integration tests are available. Run with:
+```bash
+mvn test
+```
+
+## Demo
+A demo is available in [`Main.java`](./src/main/java/com/marioflorio/prettyprinter/Main.java).
+
+**1. Build project:**
+```bash
+mvn compile
+```
+
+**2. Run:**
+```bash
+# Maven
+mvn compile exec:java -Dexec.mainClass="com.marioflorio.prettyprinter.Main"
+
+# Native Java
+java -cp target/classes com.marioflorio.prettyprinter.Main
 ```
