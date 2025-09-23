@@ -13,7 +13,7 @@ git clone https://github.com/mario-florio/java-pretty-printer.git
 cd java-pretty-printer
 ```
 
-**2. Install to local library with Mave:**
+**2. Install to local library with Maven:**
 ```bash
 mvn clean install
 ```
@@ -93,7 +93,7 @@ mvn test
 ```
 
 ## Demo
-A demo is available in `Main.java`.
+A demo is available in [`Main.java`](./src/main/java/com/marioflorio/prettyprinter/Main.java).
 
 **1. Build project:**
 ```bash
